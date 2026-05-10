@@ -8,11 +8,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-COPY composer.json ./
-
-RUN composer install --no-interaction --no-scripts
-
-# Затем копируем весь остальной код
 COPY . .
+
+RUN composer install --no-interaction
 
 CMD ["php-fpm"]
