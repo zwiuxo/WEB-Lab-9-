@@ -1,7 +1,7 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../www/TaxiOrder.php';
+require_once __DIR__ . '/../code/TaxiOrder.php';
 
 class TaxiOrderTest extends TestCase {
     
