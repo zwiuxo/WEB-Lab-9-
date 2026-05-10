@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  php:
+    build: .
+    container_name: lab9_php
+    volumes:
+      - ./code:/var/www/html
+      - ./tests:/var/www/html/tests
+    depends_on:
+      - db
+    networks:
+      - lab9_network
+
+  db:
+    image: mysql:8.0
+    container_name: lab9_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: test_db
+      MYSQL_USER: test_user
+      MYSQL_PASSWORD: test_pass
+    networks:
+      - lab9_network
+
+  web:
+    image: nginx:1.27-alpine
+    container_name: lab6_nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./code:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+    networks:
+      - lab9_network
+
+networks:
+  lab9_network:
+    driver: bridge
